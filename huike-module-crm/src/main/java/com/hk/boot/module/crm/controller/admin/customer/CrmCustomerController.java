@@ -231,44 +231,6 @@ public class CrmCustomerController {
                 new CrmCustomerRespVO().setId(customer.getId()).setName(customer.getName())));
     }
 
-    @GetMapping("/export-excel")
-    @Operation(summary = "导出客户 Excel")
-    @PreAuthorize("@ss.hasPermission('crm:customer:export')")
-    @ApiAccessLog(operateType = EXPORT)
-    public void exportCustomerExcel(@Valid CrmCustomerPageReqVO pageVO,
-                                    HttpServletResponse response) throws IOException {
-        pageVO.setPageSize(PAGE_SIZE_NONE); // 不分页
-        List<CrmCustomerDO> list = customerService.getCustomerPage(pageVO, getLoginUserId()).getList();
-        // 导出 Excel
-        ExcelUtils.write(response, "客户.xls", "数据", CrmCustomerRespVO.class,
-                buildCustomerDetailList(list));
-    }
-
-    @GetMapping("/get-import-template")
-    @Operation(summary = "获得导入客户模板")
-    public void importTemplate(HttpServletResponse response) throws IOException {
-        // 手动创建导出 demo
-        List<CrmCustomerImportExcelVO> list = Arrays.asList(
-                CrmCustomerImportExcelVO.builder().name("芋道").industryId(1).level(1).source(1)
-                        .mobile("15601691300").telephone("").qq("").wechat("").email("yunai@iocoder.cn")
-                        .areaId(null).detailAddress("").remark("").build(),
-                CrmCustomerImportExcelVO.builder().name("源码").industryId(1).level(1).source(1)
-                        .mobile("15601691300").telephone("").qq("").wechat("").email("yunai@iocoder.cn")
-                        .areaId(null).detailAddress("").remark("").build()
-        );
-        // 输出
-        ExcelUtils.write(response, "客户导入模板.xls", "客户列表", CrmCustomerImportExcelVO.class, list);
-    }
-
-    @PostMapping("/import")
-    @Operation(summary = "导入客户")
-    @PreAuthorize("@ss.hasPermission('crm:customer:import')")
-    public CommonResult<CrmCustomerImportRespVO> importExcel(@Valid CrmCustomerImportReqVO importReqVO)
-            throws Exception {
-        List<CrmCustomerImportExcelVO> list = ExcelUtils.read(importReqVO.getFile(), CrmCustomerImportExcelVO.class);
-        return success(customerService.importCustomerList(list, importReqVO));
-    }
-
     @PutMapping("/transfer")
     @Operation(summary = "转移客户")
     @PreAuthorize("@ss.hasPermission('crm:customer:update')")
