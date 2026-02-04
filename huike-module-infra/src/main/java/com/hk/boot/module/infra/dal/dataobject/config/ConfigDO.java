@@ -1,7 +1,6 @@
 package com.hk.boot.module.infra.dal.dataobject.config;
 
 import com.hk.boot.framework.mybatis.core.dataobject.BaseDO;
-import com.hk.boot.framework.tenant.core.aop.TenantIgnore;
 import com.hk.boot.module.infra.enums.config.ConfigTypeEnum;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -20,7 +19,6 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-@TenantIgnore
 public class ConfigDO extends BaseDO {
 
     /**

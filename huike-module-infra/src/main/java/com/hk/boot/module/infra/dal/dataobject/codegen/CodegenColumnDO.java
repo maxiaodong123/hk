@@ -1,7 +1,7 @@
 package com.hk.boot.module.infra.dal.dataobject.codegen;
 
 import com.hk.boot.framework.mybatis.core.dataobject.BaseDO;
-import com.hk.boot.framework.tenant.core.aop.TenantIgnore;
+
 import com.hk.boot.module.infra.enums.codegen.CodegenColumnHtmlTypeEnum;
 import com.hk.boot.module.infra.enums.codegen.CodegenColumnListConditionEnum;
 import com.baomidou.mybatisplus.annotation.KeySequence;
@@ -18,7 +18,7 @@ import lombok.Data;
 @TableName(value = "infra_codegen_column", autoResultMap = true)
 @KeySequence("infra_codegen_column_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
-@TenantIgnore
+
 public class CodegenColumnDO extends BaseDO {
 
     /**

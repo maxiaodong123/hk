@@ -2,7 +2,7 @@ package com.hk.boot.module.system.dal.dataobject.sms;
 
 import com.hk.boot.framework.common.enums.CommonStatusEnum;
 import com.hk.boot.framework.mybatis.core.dataobject.BaseDO;
-import com.hk.boot.framework.tenant.core.aop.TenantIgnore;
+
 import com.hk.boot.module.system.framework.sms.core.enums.SmsChannelEnum;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -21,7 +21,7 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-@TenantIgnore
+
 public class SmsChannelDO extends BaseDO {
 
     /**

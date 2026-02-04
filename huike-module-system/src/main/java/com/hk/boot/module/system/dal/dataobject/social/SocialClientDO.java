@@ -2,7 +2,8 @@ package com.hk.boot.module.system.dal.dataobject.social;
 
 import com.hk.boot.framework.common.enums.CommonStatusEnum;
 import com.hk.boot.framework.common.enums.UserTypeEnum;
-import com.hk.boot.framework.tenant.core.db.TenantBaseDO;
+
+import com.hk.boot.framework.mybatis.core.dataobject.BaseDO;
 import com.hk.boot.module.system.enums.social.SocialTypeEnum;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -24,7 +25,7 @@ import me.zhyd.oauth.config.AuthConfig;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SocialClientDO extends TenantBaseDO {
+public class SocialClientDO extends BaseDO {
 
     /**
      * 编号，自增

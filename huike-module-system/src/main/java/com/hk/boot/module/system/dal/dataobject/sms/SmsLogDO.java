@@ -2,7 +2,7 @@ package com.hk.boot.module.system.dal.dataobject.sms;
 
 import com.hk.boot.framework.common.enums.UserTypeEnum;
 import com.hk.boot.framework.mybatis.core.dataobject.BaseDO;
-import com.hk.boot.framework.tenant.core.aop.TenantIgnore;
+
 import com.hk.boot.module.system.enums.sms.SmsReceiveStatusEnum;
 import com.hk.boot.module.system.enums.sms.SmsSendStatusEnum;
 import com.baomidou.mybatisplus.annotation.KeySequence;
@@ -28,7 +28,7 @@ import java.util.Map;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TenantIgnore
+
 public class SmsLogDO extends BaseDO {
 
     /**

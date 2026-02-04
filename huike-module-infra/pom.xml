@@ -20,10 +20,10 @@
 
     <dependencies>
         <!-- 业务组件 -->
-        <dependency>
-            <groupId>com.hk.boot</groupId>
-            <artifactId>huike-spring-boot-starter-biz-tenant</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.hk.boot</groupId>-->
+<!--            <artifactId>huike-spring-boot-starter-biz-tenant</artifactId>-->
+<!--        </dependency>-->
 
         <!-- Web 相关 -->
         <dependency>

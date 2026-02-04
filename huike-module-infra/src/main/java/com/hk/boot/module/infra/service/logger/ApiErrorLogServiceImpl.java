@@ -4,8 +4,6 @@ import com.hk.boot.framework.common.biz.infra.logger.dto.ApiErrorLogCreateReqDTO
 import com.hk.boot.framework.common.pojo.PageResult;
 import com.hk.boot.framework.common.util.object.BeanUtils;
 import com.hk.boot.framework.common.util.string.StrUtils;
-import com.hk.boot.framework.tenant.core.context.TenantContextHolder;
-import com.hk.boot.framework.tenant.core.util.TenantUtils;
 import com.hk.boot.module.infra.controller.admin.logger.vo.apierrorlog.ApiErrorLogPageReqVO;
 import com.hk.boot.module.infra.dal.dataobject.logger.ApiErrorLogDO;
 import com.hk.boot.module.infra.dal.mysql.logger.ApiErrorLogMapper;
@@ -41,12 +39,9 @@ public class ApiErrorLogServiceImpl implements ApiErrorLogService {
                 .setProcessStatus(ApiErrorLogProcessStatusEnum.INIT.getStatus());
         apiErrorLog.setRequestParams(StrUtils.maxLength(apiErrorLog.getRequestParams(), REQUEST_PARAMS_MAX_LENGTH));
         try {
-            if (TenantContextHolder.getTenantId() != null) {
-                apiErrorLogMapper.insert(apiErrorLog);
-            } else {
-                // 极端情况下，上下文中没有租户时，此时忽略租户上下文，避免插入失败！
-                TenantUtils.executeIgnore(() -> apiErrorLogMapper.insert(apiErrorLog));
-            }
+
+            apiErrorLogMapper.insert(apiErrorLog);
+
         } catch (Exception ex) {
             // 兜底处理，目前只有 huike-cloud 会发生：https://gitee.com/huikecode/huike-cloud-mini/issues/IC1O0A
             log.error("[createApiErrorLog][记录时({}) 发生异常]", createDTO, ex);

@@ -1,6 +1,6 @@
 package com.hk.boot.module.system.dal.dataobject.sms;
 
-import com.hk.boot.framework.tenant.core.aop.TenantIgnore;
+
 import com.hk.boot.module.system.enums.sms.SmsTemplateTypeEnum;
 import com.hk.boot.framework.common.enums.CommonStatusEnum;
 import com.hk.boot.framework.mybatis.core.dataobject.BaseDO;
@@ -25,7 +25,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-@TenantIgnore
+
 public class SmsTemplateDO extends BaseDO {
 
     /**

@@ -1,12 +1,13 @@
 package com.hk.boot.module.system.dal.dataobject.oauth2;
 
 import com.hk.boot.framework.common.enums.UserTypeEnum;
-import com.hk.boot.framework.tenant.core.db.TenantBaseDO;
+
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
+import com.hk.boot.framework.mybatis.core.dataobject.BaseDO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -26,7 +27,7 @@ import java.util.Map;
 @KeySequence("system_oauth2_access_token_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class OAuth2AccessTokenDO extends TenantBaseDO {
+public class OAuth2AccessTokenDO extends BaseDO {
 
     /**
      * 编号，数据库递增

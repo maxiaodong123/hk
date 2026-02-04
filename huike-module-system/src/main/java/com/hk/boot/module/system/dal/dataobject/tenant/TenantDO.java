@@ -3,7 +3,7 @@ package com.hk.boot.module.system.dal.dataobject.tenant;
 import com.hk.boot.framework.common.enums.CommonStatusEnum;
 import com.hk.boot.framework.mybatis.core.dataobject.BaseDO;
 import com.hk.boot.framework.mybatis.core.type.StringListTypeHandler;
-import com.hk.boot.framework.tenant.core.aop.TenantIgnore;
+
 import com.hk.boot.module.system.dal.dataobject.user.AdminUserDO;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -26,7 +26,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TenantIgnore
+
 public class TenantDO extends BaseDO {
 
     /**
