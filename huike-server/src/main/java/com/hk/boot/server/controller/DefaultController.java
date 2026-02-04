@@ -20,31 +20,10 @@ import static com.hk.boot.framework.common.exception.enums.GlobalErrorCodeConsta
 @Slf4j
 public class DefaultController {
 
-    @RequestMapping("/admin-api/bpm/**")
-    public CommonResult<Boolean> bpm404() {
-        return CommonResult.error(NOT_IMPLEMENTED.getCode(),
-                "[工作流模块 huike-module-bpm - 已禁用][参考 https://doc.iocoder.cn/bpm/ 开启]");
-    }
-
     @RequestMapping("/admin-api/crm/**")
     public CommonResult<Boolean> crm404() {
         return CommonResult.error(NOT_IMPLEMENTED.getCode(),
                 "[CRM 模块 huike-module-crm - 已禁用][参考 https://doc.iocoder.cn/crm/build/ 开启]");
-    }
-
-    /**
-     * 测试接口：打印 query、header、body
-     */
-    @RequestMapping(value = { "/test" })
-    @PermitAll
-    public CommonResult<Boolean> test(HttpServletRequest request) {
-        // 打印查询参数
-        log.info("Query: {}", ServletUtils.getParamMap(request));
-        // 打印请求头
-        log.info("Header: {}", ServletUtils.getHeaderMap(request));
-        // 打印请求体
-        log.info("Body: {}", ServletUtils.getBody(request));
-        return CommonResult.success(true);
     }
 
 }
