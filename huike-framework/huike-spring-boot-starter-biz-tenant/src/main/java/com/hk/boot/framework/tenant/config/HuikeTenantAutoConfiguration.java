@@ -10,7 +10,7 @@ import com.hk.boot.framework.tenant.core.aop.TenantIgnoreAspect;
 import com.hk.boot.framework.tenant.core.db.TenantDatabaseInterceptor;
 import com.hk.boot.framework.tenant.core.job.TenantJobAspect;
 import com.hk.boot.framework.tenant.core.mq.rabbitmq.TenantRabbitMQInitializer;
-import com.hk.boot.framework.tenant.core.mq.redis.TenantRedisMessageInterceptor;
+//import com.hk.boot.framework.tenant.core.mq.redis.TenantRedisMessageInterceptor;
 import com.hk.boot.framework.tenant.core.mq.rocketmq.TenantRocketMQInitializer;
 import com.hk.boot.framework.tenant.core.redis.TenantRedisCacheManager;
 import com.hk.boot.framework.tenant.core.security.TenantSecurityWebFilter;
@@ -155,10 +155,10 @@ public class HuikeTenantAutoConfiguration {
 
     // ========== MQ ==========
 
-    @Bean
-    public TenantRedisMessageInterceptor tenantRedisMessageInterceptor() {
-        return new TenantRedisMessageInterceptor();
-    }
+//    @Bean
+//    public TenantRedisMessageInterceptor tenantRedisMessageInterceptor() {
+//        return new TenantRedisMessageInterceptor();
+//    }
 
     @Bean
     @ConditionalOnClass(name = "org.springframework.amqp.rabbit.core.RabbitTemplate")
