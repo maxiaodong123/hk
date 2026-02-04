@@ -5,7 +5,7 @@ import com.hk.boot.framework.common.enums.UserTypeEnum;
 import com.hk.boot.framework.common.pojo.CommonResult;
 import com.hk.boot.framework.common.pojo.PageResult;
 import com.hk.boot.framework.common.util.object.BeanUtils;
-import com.hk.boot.module.infra.api.websocket.WebSocketSenderApi;
+//import com.hk.boot.module.infra.api.websocket.WebSocketSenderApi;
 import com.hk.boot.module.system.controller.admin.notice.vo.NoticePageReqVO;
 import com.hk.boot.module.system.controller.admin.notice.vo.NoticeRespVO;
 import com.hk.boot.module.system.controller.admin.notice.vo.NoticeSaveReqVO;
@@ -33,8 +33,8 @@ public class NoticeController {
     @Resource
     private NoticeService noticeService;
 
-    @Resource
-    private WebSocketSenderApi webSocketSenderApi;
+//    @Resource
+//    private WebSocketSenderApi webSocketSenderApi;
 
     @PostMapping("/create")
     @Operation(summary = "创建通知公告")
@@ -95,7 +95,7 @@ public class NoticeController {
         NoticeDO notice = noticeService.getNotice(id);
         Assert.notNull(notice, "公告不能为空");
         // 通过 websocket 推送给在线的用户
-        webSocketSenderApi.sendObject(UserTypeEnum.ADMIN.getValue(), "notice-push", notice);
+//        webSocketSenderApi.sendObject(UserTypeEnum.ADMIN.getValue(), "notice-push", notice);
         return success(true);
     }
 

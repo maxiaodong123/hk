@@ -31,10 +31,10 @@
             <artifactId>huike-spring-boot-starter-security</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.hk.boot</groupId>
-            <artifactId>huike-spring-boot-starter-websocket</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.hk.boot</groupId>-->
+<!--            <artifactId>huike-spring-boot-starter-websocket</artifactId>-->
+<!--        </dependency>-->
 
         <!-- DB 相关 -->
         <dependency>
