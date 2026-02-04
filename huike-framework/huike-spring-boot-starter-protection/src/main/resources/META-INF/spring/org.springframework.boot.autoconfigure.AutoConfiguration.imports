@@ -1,4 +1,0 @@
-com.hk.boot.framework.idempotent.config.HuikeIdempotentConfiguration
-com.hk.boot.framework.lock4j.config.HuikeLock4jConfiguration
-com.hk.boot.framework.ratelimiter.config.HuikeRateLimiterConfiguration
-com.hk.boot.framework.signature.config.HuikeApiSignatureAutoConfiguration

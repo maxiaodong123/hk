@@ -16,7 +16,6 @@
         <module>huike-spring-boot-starter-web</module>
         <module>huike-spring-boot-starter-security</module>
         <module>huike-spring-boot-starter-websocket</module>
-        <module>huike-spring-boot-starter-protection</module>
         <module>huike-spring-boot-starter-job</module>
         <module>huike-spring-boot-starter-mq</module>
         <module>huike-spring-boot-starter-excel</module>
