@@ -76,12 +76,6 @@
             <artifactId>velocity-engine-core</artifactId> <!-- 实现代码生成 -->
         </dependency>
 
-        <!-- 监控相关 -->
-        <dependency>
-            <groupId>com.hk.boot</groupId>
-            <artifactId>huike-spring-boot-starter-monitor</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-server</artifactId> <!-- 实现 Spring Boot Admin Server 服务端 -->
