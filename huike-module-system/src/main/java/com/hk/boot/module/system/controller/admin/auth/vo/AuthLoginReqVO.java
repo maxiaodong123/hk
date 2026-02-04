@@ -1,8 +1,6 @@
 package com.hk.boot.module.system.controller.admin.auth.vo;
 
 import cn.hutool.core.util.StrUtil;
-import com.hk.boot.framework.common.validation.InEnum;
-import com.hk.boot.module.system.enums.social.SocialTypeEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,7 +33,6 @@ public class AuthLoginReqVO extends CaptchaVerificationReqVO {
     // ========== 绑定社交登录时，需要传递如下参数 ==========
 
     @Schema(description = "社交平台的类型，参见 SocialTypeEnum 枚举值", requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
-    @InEnum(SocialTypeEnum.class)
     private Integer socialType;
 
     @Schema(description = "授权码", requiredMode = Schema.RequiredMode.REQUIRED, example = "1024")
