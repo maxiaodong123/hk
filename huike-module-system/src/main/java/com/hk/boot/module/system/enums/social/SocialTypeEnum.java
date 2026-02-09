@@ -19,7 +19,6 @@ public enum SocialTypeEnum implements ArrayValuable<Integer> {
     /**
      * Gitee
      *
-     * @see <a href="https://gitee.com/api/v5/oauth_doc#/">接入文档</a>
      */
     GITEE(10, "GITEE"),
     /**

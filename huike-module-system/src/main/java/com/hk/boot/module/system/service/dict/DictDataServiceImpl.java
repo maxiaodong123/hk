@@ -26,7 +26,7 @@ import static com.hk.boot.module.system.enums.ErrorCodeConstants.*;
 /**
  * 字典数据 Service 实现类
  *
- * @author ruoyi
+ * @author maxiaodong
  */
 @Service
 @Slf4j

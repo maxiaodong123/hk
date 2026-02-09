@@ -23,7 +23,7 @@ public class DefaultController {
     @RequestMapping("/admin-api/crm/**")
     public CommonResult<Boolean> crm404() {
         return CommonResult.error(NOT_IMPLEMENTED.getCode(),
-                "[CRM 模块 huike-module-crm - 已禁用][参考 https://doc.iocoder.cn/crm/build/ 开启]");
+                "[CRM 模块 huike-module-crm - 已禁用]");
     }
 
 }

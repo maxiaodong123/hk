@@ -20,7 +20,6 @@
 
     <name>${project.artifactId}</name>
     <description>汇客云项目基础脚手架</description>
-    <url>https://github.com/YunaiV/ruoyi-vue-pro</url>
 
     <properties>
         <revision>1.0.0</revision>

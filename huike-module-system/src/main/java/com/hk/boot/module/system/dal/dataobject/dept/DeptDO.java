@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 /**
  * 部门表
  *
- * @author ruoyi
+ * @author maxiaodong
  * @author maxiaodong
  */
 @TableName("system_dept")

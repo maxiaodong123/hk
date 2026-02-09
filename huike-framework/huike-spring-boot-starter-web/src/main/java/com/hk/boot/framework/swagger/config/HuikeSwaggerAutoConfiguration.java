@@ -45,7 +45,7 @@ import static com.hk.boot.framework.web.core.util.WebFrameworkUtils.HEADER_TENAN
  *
  * @author maxiaodong
  */
-@AutoConfiguration(before = Knife4jAutoConfiguration.class) // before 原因，保证覆写的 Knife4jOpenApiCustomizer 先生效！相关 https://github.com/YunaiV/ruoyi-vue-pro/issues/954 讨论
+@AutoConfiguration(before = Knife4jAutoConfiguration.class) // before 原因，保证覆写的 Knife4jOpenApiCustomizer 先生效！
 @ConditionalOnClass({OpenAPI.class})
 @EnableConfigurationProperties(SwaggerProperties.class)
 @ConditionalOnProperty(prefix = "springdoc.api-docs", name = "enabled", havingValue = "true", matchIfMissing = true) // 设置为 false 时，禁用
@@ -164,7 +164,6 @@ public class HuikeSwaggerAutoConfiguration {
     /**
      * 核心：自定义OperationId生成规则，组合「类名前缀 + 方法名」
      *
-     * @see <a href="https://github.com/YunaiV/ruoyi-vue-pro/issues/957">app-api 前缀不生效，都是使用 admin-api</a>
      */
     private static OperationCustomizer buildOperationIdCustomizer() {
         return (operation, handlerMethod) -> {

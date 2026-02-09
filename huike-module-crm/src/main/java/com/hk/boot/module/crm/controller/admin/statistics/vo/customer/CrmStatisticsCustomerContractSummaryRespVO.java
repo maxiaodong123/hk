@@ -36,7 +36,7 @@ public class CrmStatisticsCustomerContractSummaryRespVO {
 
     @Schema(description = "创建人编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "2")
     private String creator;
-    @Schema(description = "创建人", requiredMode = Schema.RequiredMode.REQUIRED, example = "源码")
+    @Schema(description = "创建人", requiredMode = Schema.RequiredMode.REQUIRED)
     private String creatorUserName;
 
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED, example = "2024-02-01 13:24:26")

@@ -20,7 +20,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"parent"}) // 参见 https://gitee.com/huikecode/huike-cloud-mini/pulls/2 原因
+@ToString(exclude = {"parent"})
 public class Area {
 
     /**

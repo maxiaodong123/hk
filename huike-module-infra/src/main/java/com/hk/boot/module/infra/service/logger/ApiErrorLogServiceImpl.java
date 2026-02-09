@@ -48,7 +48,6 @@ public class ApiErrorLogServiceImpl implements ApiErrorLogService {
                 TenantUtils.executeIgnore(() -> apiErrorLogMapper.insert(apiErrorLog));
             }
         } catch (Exception ex) {
-            // 兜底处理，目前只有 huike-cloud 会发生：https://gitee.com/huikecode/huike-cloud-mini/issues/IC1O0A
             log.error("[createApiErrorLog][记录时({}) 发生异常]", createDTO, ex);
         }
     }

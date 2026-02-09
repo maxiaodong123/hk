@@ -153,7 +153,7 @@ public class SocialUserServiceImpl implements SocialUserService {
         if (socialUser.getId() == null) {
             socialUserMapper.insert(socialUser);
         } else {
-            socialUser.clean(); // 避免 updateTime 不更新：https://gitee.com/huikecode/huike-boot-mini/issues/ID7FUL
+            socialUser.clean(); // 避免 updateTime 不更新
             socialUserMapper.updateById(socialUser);
         }
         return socialUser;
