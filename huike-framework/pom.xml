@@ -15,11 +15,9 @@
         <module>huike-spring-boot-starter-redis</module>
         <module>huike-spring-boot-starter-web</module>
         <module>huike-spring-boot-starter-security</module>
-<!--        <module>huike-spring-boot-starter-websocket</module>-->
         <module>huike-spring-boot-starter-job</module>
-<!--        <module>huike-spring-boot-starter-mq</module>-->
         <module>huike-spring-boot-starter-excel</module>
-<!--        <module>huike-spring-boot-starter-biz-tenant</module>-->
+        <module>huike-spring-boot-starter-biz-tenant</module>
         <module>huike-spring-boot-starter-biz-data-permission</module>
         <module>huike-spring-boot-starter-biz-ip</module>
     </modules>

@@ -6,6 +6,7 @@ import com.hk.boot.framework.mybatis.core.util.MyBatisUtils;
 import com.hk.boot.framework.redis.config.HuikeCacheProperties;
 import com.hk.boot.framework.security.core.service.SecurityFrameworkService;
 
+import com.hk.boot.framework.tenant.core.aop.TenantIgnore;
 import com.hk.boot.framework.tenant.core.aop.TenantIgnoreAspect;
 import com.hk.boot.framework.tenant.core.db.TenantDatabaseInterceptor;
 import com.hk.boot.framework.tenant.core.job.TenantJobAspect;

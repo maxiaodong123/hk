@@ -2,6 +2,7 @@ package com.hk.boot.framework.tenant.core.db;
 
 import com.hk.boot.framework.tenant.config.TenantProperties;
 
+import com.hk.boot.framework.tenant.core.aop.TenantIgnore;
 import com.hk.boot.framework.tenant.core.context.TenantContextHolder;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
