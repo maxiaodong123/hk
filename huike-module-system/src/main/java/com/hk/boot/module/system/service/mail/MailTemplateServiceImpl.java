@@ -1,79 +1,3 @@
-package com.hk.boot.module.system.service.mail;
-
-import cn.hutool.core.util.ObjUtil;
-import cn.hutool.core.util.ReUtil;
-import cn.hutool.core.util.StrUtil;
-import com.hk.boot.framework.common.pojo.PageResult;
-import com.hk.boot.framework.common.util.object.BeanUtils;
-import com.hk.boot.module.system.controller.admin.mail.vo.template.MailTemplatePageReqVO;
-import com.hk.boot.module.system.controller.admin.mail.vo.template.MailTemplateSaveReqVO;
-import com.hk.boot.module.system.dal.dataobject.mail.MailTemplateDO;
-import com.hk.boot.module.system.dal.mysql.mail.MailTemplateMapper;
-import com.hk.boot.module.system.dal.redis.RedisKeyConstants;
-import com.google.common.annotations.VisibleForTesting;
-import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static com.hk.boot.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static com.hk.boot.module.system.enums.ErrorCodeConstants.MAIL_TEMPLATE_CODE_EXISTS;
-import static com.hk.boot.module.system.enums.ErrorCodeConstants.MAIL_TEMPLATE_NOT_EXISTS;
-
-/**
- * 邮箱模版 Service 实现类
- *
- * @author wangjingyi
- * @since 2022-03-21
- */
-@Service
-@Validated
-@Slf4j
-public class MailTemplateServiceImpl implements MailTemplateService {
-
-    /**
-     * 正则表达式，匹配 {} 中的变量
-     */
-    private static final Pattern PATTERN_PARAMS = Pattern.compile("\\{(.*?)}");
-
-    @Resource
-    private MailTemplateMapper mailTemplateMapper;
-
-    @Override
-    public Long createMailTemplate(MailTemplateSaveReqVO createReqVO) {
-        // 校验 code 是否唯一
-        validateCodeUnique(null, createReqVO.getCode());
-
-        // 插入
-        MailTemplateDO template = BeanUtils.toBean(createReqVO, MailTemplateDO.class)
-                .setParams(parseTemplateTitleAndContentParams(createReqVO.getTitle(), createReqVO.getContent()));
-        mailTemplateMapper.insert(template);
-        return template.getId();
-    }
-
-    @Override
-    @CacheEvict(cacheNames = RedisKeyConstants.MAIL_TEMPLATE,
-            allEntries = true) // allEntries 清空所有缓存，因为可能修改到 code 字段，不好清理
-    public void updateMailTemplate(@Valid MailTemplateSaveReqVO updateReqVO) {
-        // 校验是否存在
-        validateMailTemplateExists(updateReqVO.getId());
-        // 校验 code 是否唯一
-        validateCodeUnique(updateReqVO.getId(),updateReqVO.getCode());
-
-        // 更新
-        MailTemplateDO updateObj = BeanUtils.toBean(updateReqVO, MailTemplateDO.class)
-                .setParams(parseTemplateTitleAndContentParams(updateReqVO.getTitle(), updateReqVO.getContent()));
-        mailTemplateMapper.updateById(updateObj);
-    }
 
     @VisibleForTesting
     void validateCodeUnique(Long id, String code) {
@@ -134,6 +58,7 @@ public class MailTemplateServiceImpl implements MailTemplateService {
         // 1. 先替换模板变量
         String formattedContent = StrUtil.format(content, params);
 
+        // 关联 Pull Request：https://gitee.com/zhijiantianya/ruoyi-vue-pro/pulls/1461 讨论
         // 2.1 反转义HTML特殊字符
         formattedContent = unescapeHtml(formattedContent);
         // 2.2 处理代码块（确保<pre><code>标签格式正确）

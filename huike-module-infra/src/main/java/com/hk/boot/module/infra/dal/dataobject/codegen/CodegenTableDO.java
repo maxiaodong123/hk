@@ -1,7 +1,6 @@
 package com.hk.boot.module.infra.dal.dataobject.codegen;
 
 import com.hk.boot.framework.mybatis.core.dataobject.BaseDO;
-import com.hk.boot.framework.tenant.core.aop.TenantIgnore;
 import com.hk.boot.module.infra.dal.dataobject.db.DataSourceConfigDO;
 import com.hk.boot.module.infra.enums.codegen.CodegenFrontTypeEnum;
 import com.hk.boot.module.infra.enums.codegen.CodegenSceneEnum;
@@ -20,7 +19,7 @@ import lombok.Data;
 @TableName(value = "infra_codegen_table", autoResultMap = true)
 @KeySequence("infra_codegen_table_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
-@TenantIgnore
+
 public class CodegenTableDO extends BaseDO {
 
     /**

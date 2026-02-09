@@ -1,7 +1,8 @@
 package com.hk.boot.module.system.dal.dataobject.user;
 
 import com.hk.boot.framework.common.enums.CommonStatusEnum;
-import com.hk.boot.framework.tenant.core.db.TenantBaseDO;
+
+import com.hk.boot.framework.mybatis.core.dataobject.BaseDO;
 import com.hk.boot.module.system.enums.common.SexEnum;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -26,7 +27,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdminUserDO extends TenantBaseDO {
+public class AdminUserDO extends BaseDO {
 
     /**
      * 用户ID

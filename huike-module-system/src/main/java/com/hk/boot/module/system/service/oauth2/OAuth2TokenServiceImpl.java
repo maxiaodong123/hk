@@ -12,8 +12,6 @@ import com.hk.boot.framework.common.pojo.PageResult;
 import com.hk.boot.framework.common.util.date.DateUtils;
 import com.hk.boot.framework.common.util.object.BeanUtils;
 import com.hk.boot.framework.security.core.LoginUser;
-import com.hk.boot.framework.tenant.core.context.TenantContextHolder;
-import com.hk.boot.framework.tenant.core.util.TenantUtils;
 import com.hk.boot.module.system.controller.admin.oauth2.vo.token.OAuth2AccessTokenPageReqVO;
 import com.hk.boot.module.system.dal.dataobject.oauth2.OAuth2AccessTokenDO;
 import com.hk.boot.module.system.dal.dataobject.oauth2.OAuth2ClientDO;
@@ -181,13 +179,6 @@ public class OAuth2TokenServiceImpl implements OAuth2TokenService {
                 .setClientId(clientDO.getClientId()).setScopes(refreshTokenDO.getScopes())
                 .setRefreshToken(refreshTokenDO.getRefreshToken())
                 .setExpiresTime(LocalDateTime.now().plusSeconds(clientDO.getAccessTokenValiditySeconds()));
-        // 优先从 refreshToken 获取租户编号，避免 ThreadLocal 被污染时导致 tenantId 为 null
-        // 可能关联的 issue：https://t.zsxq.com/JIi5G
-        Long tenantId = refreshTokenDO.getTenantId();
-        if (tenantId == null) {
-            tenantId = TenantContextHolder.getTenantId();
-        }
-        accessTokenDO.setTenantId(tenantId);
         oauth2AccessTokenMapper.insert(accessTokenDO);
         // 记录到 Redis 中
         oauth2AccessTokenRedisDAO.set(accessTokenDO);
@@ -206,8 +197,7 @@ public class OAuth2TokenServiceImpl implements OAuth2TokenService {
     private OAuth2AccessTokenDO convertToAccessToken(OAuth2RefreshTokenDO refreshTokenDO) {
         OAuth2AccessTokenDO accessTokenDO = BeanUtils.toBean(refreshTokenDO, OAuth2AccessTokenDO.class)
                 .setAccessToken(refreshTokenDO.getRefreshToken());
-        TenantUtils.execute(refreshTokenDO.getTenantId(),
-                        () -> accessTokenDO.setUserInfo(buildUserInfo(refreshTokenDO.getUserId(), refreshTokenDO.getUserType())));
+
         return accessTokenDO;
     }
 

@@ -3,7 +3,7 @@ package com.hk.boot.module.infra.dal.dataobject.file;
 import cn.hutool.core.util.StrUtil;
 import com.hk.boot.framework.common.util.json.JsonUtils;
 import com.hk.boot.framework.mybatis.core.dataobject.BaseDO;
-import com.hk.boot.framework.tenant.core.aop.TenantIgnore;
+
 import com.hk.boot.module.infra.framework.file.core.client.FileClientConfig;
 import com.hk.boot.module.infra.framework.file.core.client.db.DBFileClientConfig;
 import com.hk.boot.module.infra.framework.file.core.client.ftp.FtpFileClientConfig;
@@ -33,7 +33,7 @@ import java.lang.reflect.Field;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TenantIgnore
+
 public class FileConfigDO extends BaseDO {
 
     /**

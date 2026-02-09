@@ -6,7 +6,7 @@ import cn.hutool.core.util.URLUtil;
 import com.hk.boot.framework.common.pojo.CommonResult;
 import com.hk.boot.framework.common.pojo.PageResult;
 import com.hk.boot.framework.common.util.object.BeanUtils;
-import com.hk.boot.framework.tenant.core.aop.TenantIgnore;
+
 import com.hk.boot.module.infra.controller.admin.file.vo.file.*;
 import com.hk.boot.module.infra.dal.dataobject.file.FileDO;
 import com.hk.boot.module.infra.service.file.FileService;
@@ -100,7 +100,7 @@ public class FileController {
 
     @GetMapping("/{configId}/get/**")
     @PermitAll
-    @TenantIgnore
+    
     @Operation(summary = "下载文件")
     @Parameter(name = "configId", description = "配置编号", required = true)
     public void getFileContent(HttpServletRequest request,
