@@ -9,7 +9,9 @@ import com.hk.boot.framework.common.util.collection.MapUtils;
 import com.hk.boot.framework.common.util.number.NumberUtils;
 import com.hk.boot.framework.common.util.object.BeanUtils;
 import com.hk.boot.framework.excel.core.util.ExcelUtils;
+import com.hk.boot.module.crm.controller.admin.contract.vo.contract.CrmContractApproveReqVO;
 import com.hk.boot.module.crm.controller.admin.contract.vo.contract.CrmContractRespVO;
+import com.hk.boot.module.crm.controller.admin.receivable.vo.receivable.CrmReceivableApproveReqVO;
 import com.hk.boot.module.crm.controller.admin.receivable.vo.receivable.CrmReceivablePageReqVO;
 import com.hk.boot.module.crm.controller.admin.receivable.vo.receivable.CrmReceivableRespVO;
 import com.hk.boot.module.crm.controller.admin.receivable.vo.receivable.CrmReceivableSaveReqVO;
@@ -121,19 +123,6 @@ public class CrmReceivableController {
         return success(new PageResult<>(buildReceivableDetailList(pageResult.getList()), pageResult.getTotal()));
     }
 
-    @GetMapping("/export-excel")
-    @Operation(summary = "导出回款 Excel")
-    @PreAuthorize("@ss.hasPermission('crm:receivable:export')")
-    @ApiAccessLog(operateType = EXPORT)
-    public void exportReceivableExcel(@Valid CrmReceivablePageReqVO exportReqVO,
-                                      HttpServletResponse response) throws IOException {
-        exportReqVO.setPageSize(PAGE_SIZE_NONE);
-        List<CrmReceivableDO> list = receivableService.getReceivablePage(exportReqVO, getLoginUserId()).getList();
-        // 导出 Excel
-        ExcelUtils.write(response, "回款.xls", "数据", CrmReceivableRespVO.class,
-                buildReceivableDetailList(list));
-    }
-
     private List<CrmReceivableRespVO> buildReceivableDetailList(List<CrmReceivableDO> receivableList) {
         if (CollUtil.isEmpty(receivableList)) {
             return Collections.emptyList();
@@ -178,6 +167,14 @@ public class CrmReceivableController {
     @PreAuthorize("@ss.hasPermission('crm:receivable:query')")
     public CommonResult<Long> getAuditReceivableCount() {
         return success(receivableService.getAuditReceivableCount(getLoginUserId()));
+    }
+
+    @PutMapping("/approve")
+    @Operation(summary = "回款审批")
+    @PreAuthorize("@ss.hasPermission('crm:receivable:update')")
+    public CommonResult<Boolean> approveContract(@Valid @RequestBody CrmReceivableApproveReqVO reqVO) {
+        receivableService.approveReceivable(reqVO, getLoginUserId());
+        return success(true);
     }
 
 }

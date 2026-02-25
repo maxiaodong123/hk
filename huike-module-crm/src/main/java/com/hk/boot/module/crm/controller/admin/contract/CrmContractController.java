@@ -10,10 +10,7 @@ import com.hk.boot.framework.common.util.collection.MapUtils;
 import com.hk.boot.framework.common.util.number.NumberUtils;
 import com.hk.boot.framework.common.util.object.BeanUtils;
 import com.hk.boot.framework.excel.core.util.ExcelUtils;
-import com.hk.boot.module.crm.controller.admin.contract.vo.contract.CrmContractPageReqVO;
-import com.hk.boot.module.crm.controller.admin.contract.vo.contract.CrmContractRespVO;
-import com.hk.boot.module.crm.controller.admin.contract.vo.contract.CrmContractSaveReqVO;
-import com.hk.boot.module.crm.controller.admin.contract.vo.contract.CrmContractTransferReqVO;
+import com.hk.boot.module.crm.controller.admin.contract.vo.contract.*;
 import com.hk.boot.module.crm.dal.dataobject.business.CrmBusinessDO;
 import com.hk.boot.module.crm.dal.dataobject.contact.CrmContactDO;
 import com.hk.boot.module.crm.dal.dataobject.contract.CrmContractDO;
@@ -151,18 +148,6 @@ public class CrmContractController {
         return success(BeanUtils.toBean(pageResult, CrmContractRespVO.class).setList(buildContractDetailList(pageResult.getList())));
     }
 
-    @GetMapping("/export-excel")
-    @Operation(summary = "导出合同 Excel")
-    @PreAuthorize("@ss.hasPermission('crm:contract:export')")
-    @ApiAccessLog(operateType = EXPORT)
-    public void exportContractExcel(@Valid CrmContractPageReqVO exportReqVO,
-                                    HttpServletResponse response) throws IOException {
-        PageResult<CrmContractDO> pageResult = contractService.getContractPage(exportReqVO, getLoginUserId());
-        // 导出 Excel
-        ExcelUtils.write(response, "合同.xls", "数据", CrmContractRespVO.class,
-                BeanUtils.toBean(pageResult.getList(), CrmContractRespVO.class));
-    }
-
     @PutMapping("/transfer")
     @Operation(summary = "合同转移")
     @PreAuthorize("@ss.hasPermission('crm:contract:update')")
@@ -253,4 +238,11 @@ public class CrmContractController {
                 .setTotalReceivablePrice(receivablePriceMap.getOrDefault(contract.getId(), BigDecimal.ZERO))));
     }
 
+    @PutMapping("/approve")
+    @Operation(summary = "合同审批")
+    @PreAuthorize("@ss.hasPermission('crm:contract:update')")
+    public CommonResult<Boolean> approveContract(@Valid @RequestBody CrmContractApproveReqVO reqVO) {
+        contractService.approveContract(reqVO, getLoginUserId());
+        return success(true);
+    }
 }

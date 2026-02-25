@@ -1,6 +1,7 @@
 package com.hk.boot.module.crm.service.contract;
 
 import com.hk.boot.framework.common.pojo.PageResult;
+import com.hk.boot.module.crm.controller.admin.contract.vo.contract.CrmContractApproveReqVO;
 import com.hk.boot.module.crm.controller.admin.contract.vo.contract.CrmContractPageReqVO;
 import com.hk.boot.module.crm.controller.admin.contract.vo.contract.CrmContractSaveReqVO;
 import com.hk.boot.module.crm.controller.admin.contract.vo.contract.CrmContractTransferReqVO;
@@ -201,5 +202,13 @@ public interface CrmContractService {
      * @return 合同列表
      */
     List<CrmContractDO> getContractListByCustomerIdOwnerUserId(Long customerId, Long ownerUserId);
+
+    /**
+     * 合同审批
+     *
+     * @param reqVO  合同审批信息
+     * @param userId 用户编号
+     */
+    void approveContract(CrmContractApproveReqVO reqVO, Long userId);
 
 }

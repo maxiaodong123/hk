@@ -1,6 +1,8 @@
 package com.hk.boot.module.crm.service.receivable;
 
 import com.hk.boot.framework.common.pojo.PageResult;
+import com.hk.boot.module.crm.controller.admin.contract.vo.contract.CrmContractApproveReqVO;
+import com.hk.boot.module.crm.controller.admin.receivable.vo.receivable.CrmReceivableApproveReqVO;
 import com.hk.boot.module.crm.controller.admin.receivable.vo.receivable.CrmReceivablePageReqVO;
 import com.hk.boot.module.crm.controller.admin.receivable.vo.receivable.CrmReceivableSaveReqVO;
 import com.hk.boot.module.crm.dal.dataobject.customer.CrmCustomerDO;
@@ -129,5 +131,13 @@ public interface CrmReceivableService {
      * @return 回款数量
      */
     Long getReceivableCountByContractId(Long contractId);
+
+    /**
+     * 回款审批
+     *
+     * @param reqVO  回款信息
+     * @param userId 用户编号
+     */
+    void approveReceivable(CrmReceivableApproveReqVO reqVO, Long userId);
 
 }

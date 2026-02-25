@@ -8,6 +8,7 @@ import com.hk.boot.framework.common.pojo.PageResult;
 import com.hk.boot.framework.common.util.number.MoneyUtils;
 import com.hk.boot.framework.common.util.object.BeanUtils;
 import com.hk.boot.framework.common.util.object.ObjectUtils;
+import com.hk.boot.module.crm.controller.admin.contract.vo.contract.CrmContractApproveReqVO;
 import com.hk.boot.module.crm.controller.admin.contract.vo.contract.CrmContractPageReqVO;
 import com.hk.boot.module.crm.controller.admin.contract.vo.contract.CrmContractSaveReqVO;
 import com.hk.boot.module.crm.controller.admin.contract.vo.contract.CrmContractTransferReqVO;
@@ -290,6 +291,8 @@ public class CrmContractServiceImpl implements CrmContractService {
         if (ObjUtil.notEqual(contract.getAuditStatus(), CrmAuditStatusEnum.DRAFT.getStatus())) {
             throw exception(CONTRACT_SUBMIT_FAIL_NOT_DRAFT);
         }
+        // 2. 修改合同状态为审批中
+        contractMapper.updateById(new CrmContractDO().setId(id).setAuditStatus(CrmAuditStatusEnum.PROCESS.getStatus()));
 
         // 3. 记录日志
         LogRecordContext.putVariable("contractName", contract.getName());
@@ -398,6 +401,21 @@ public class CrmContractServiceImpl implements CrmContractService {
     @Override
     public List<CrmContractDO> getContractListByCustomerIdOwnerUserId(Long customerId, Long ownerUserId) {
         return contractMapper.selectListByCustomerIdOwnerUserId(customerId, ownerUserId);
+    }
+
+    @Override
+    public void approveContract(CrmContractApproveReqVO reqVO, Long userId) {
+        // 1.1 校验合同是否存在
+        CrmContractDO contract = validateContractExists(reqVO.getId());
+        // 1.2 只有审批中，可以更新审批结果
+        if (ObjUtil.notEqual(contract.getAuditStatus(), CrmAuditStatusEnum.PROCESS.getStatus())) {
+            log.error("[approveContract][contract({}) 不处于审批中，无法更新审批结果({})]",
+                    contract.getId(), reqVO.getStatus());
+            throw exception(CONTRACT_UPDATE_AUDIT_STATUS_FAIL_NOT_PROCESS);
+        }
+
+        // 2. 更新合同审批结果
+        contractMapper.updateById(new CrmContractDO().setId(reqVO.getId()).setAuditStatus(reqVO.getStatus()));
     }
 
 }

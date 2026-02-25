@@ -9,6 +9,7 @@ import com.hk.boot.framework.common.pojo.PageResult;
 import com.hk.boot.framework.common.util.collection.CollectionUtils;
 import com.hk.boot.framework.common.util.object.BeanUtils;
 import com.hk.boot.framework.common.util.object.ObjectUtils;
+import com.hk.boot.module.crm.controller.admin.receivable.vo.receivable.CrmReceivableApproveReqVO;
 import com.hk.boot.module.crm.controller.admin.receivable.vo.receivable.CrmReceivablePageReqVO;
 import com.hk.boot.module.crm.controller.admin.receivable.vo.receivable.CrmReceivableSaveReqVO;
 import com.hk.boot.module.crm.dal.dataobject.contract.CrmContractDO;
@@ -241,7 +242,10 @@ public class CrmReceivableServiceImpl implements CrmReceivableService {
         if (ObjUtil.notEqual(receivable.getAuditStatus(), CrmAuditStatusEnum.DRAFT.getStatus())) {
             throw exception(RECEIVABLE_SUBMIT_FAIL_NOT_DRAFT);
         }
-        // 4. 记录日志
+        // 2. 修改回款状态为审批中
+        receivableMapper.updateById(new CrmReceivableDO().setId(id).setAuditStatus(CrmAuditStatusEnum.PROCESS.getStatus()));
+
+        // 3. 记录日志
         LogRecordContext.putVariable("receivableNo", receivable.getNo());
     }
 
@@ -291,6 +295,23 @@ public class CrmReceivableServiceImpl implements CrmReceivableService {
     @Override
     public Long getReceivableCountByContractId(Long contractId) {
         return receivableMapper.selectCountByContractId(contractId);
+    }
+
+    @Override
+    public void approveReceivable(CrmReceivableApproveReqVO reqVO, Long userId) {
+        // 1. 校验回款是否在审批
+        CrmReceivableDO receivable = validateReceivableExists(reqVO.getId());
+        // 1.2 只有审批中，可以更新审批结果
+        if (ObjUtil.notEqual(receivable.getAuditStatus(), CrmAuditStatusEnum.PROCESS.getStatus())) {
+            log.error("[approveReceivable][receivable({}) 不处于审批中，无法更新审批结果({})]",
+                    receivable.getId(), reqVO.getStatus());
+            throw exception(RECEIVABLE_UPDATE_AUDIT_STATUS_FAIL_NOT_PROCESS);
+        }
+        // 2. 修改回款状态为审批中
+        receivableMapper.updateById(new CrmReceivableDO().setId(reqVO.getId()).setAuditStatus(reqVO.getStatus()));
+
+        // 3. 记录日志
+        LogRecordContext.putVariable("receivableNo", receivable.getNo());
     }
 
 }
