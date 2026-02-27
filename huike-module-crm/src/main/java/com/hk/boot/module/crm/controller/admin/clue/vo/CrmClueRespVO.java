@@ -2,7 +2,6 @@ package com.hk.boot.module.crm.controller.admin.clue.vo;
 
 import com.hk.boot.framework.excel.core.annotations.DictFormat;
 import com.hk.boot.framework.excel.core.convert.DictConvert;
-import com.hk.boot.module.infra.enums.DictTypeConstants;
 import cn.idev.excel.annotation.ExcelIgnoreUnannotated;
 import cn.idev.excel.annotation.ExcelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,7 +26,6 @@ public class CrmClueRespVO {
 
     @Schema(description = "跟进状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "true")
     @ExcelProperty(value = "跟进状态", converter = DictConvert.class)
-    @DictFormat(DictTypeConstants.BOOLEAN_STRING)
     private Boolean followUpStatus;
 
     @Schema(description = "最后跟进时间")
@@ -53,7 +51,6 @@ public class CrmClueRespVO {
 
     @Schema(description = "转化状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "true")
     @ExcelProperty(value = "转化状态", converter = DictConvert.class)
-    @DictFormat(DictTypeConstants.BOOLEAN_STRING)
     private Boolean transformStatus;
 
     @Schema(description = "客户编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "520")

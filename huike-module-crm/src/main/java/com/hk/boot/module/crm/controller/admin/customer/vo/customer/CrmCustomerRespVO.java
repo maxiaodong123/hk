@@ -2,7 +2,6 @@ package com.hk.boot.module.crm.controller.admin.customer.vo.customer;
 
 import com.hk.boot.framework.excel.core.annotations.DictFormat;
 import com.hk.boot.framework.excel.core.convert.DictConvert;
-import com.hk.boot.module.infra.enums.DictTypeConstants;
 import cn.idev.excel.annotation.ExcelIgnoreUnannotated;
 import cn.idev.excel.annotation.ExcelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,7 +24,6 @@ public class CrmCustomerRespVO {
 
     @Schema(description = "跟进状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "13563")
     @ExcelProperty(value = "跟进状态", converter = DictConvert.class)
-    @DictFormat(DictTypeConstants.BOOLEAN_STRING)
     private Boolean followUpStatus;
 
     @Schema(description = "最后跟进时间")
@@ -52,12 +50,10 @@ public class CrmCustomerRespVO {
 
     @Schema(description = "锁定状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "13563")
     @ExcelProperty(value = "锁定状态", converter = DictConvert.class)
-    @DictFormat(DictTypeConstants.BOOLEAN_STRING)
     private Boolean lockStatus;
 
     @Schema(description = "成交状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "13563")
     @ExcelProperty(value = "成交状态", converter = DictConvert.class)
-    @DictFormat(DictTypeConstants.BOOLEAN_STRING)
     private Boolean dealStatus;
 
     @Schema(description = "手机", example = "25682")

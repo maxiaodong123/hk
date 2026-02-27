@@ -2,7 +2,6 @@ package com.hk.boot.module.crm.controller.admin.contact.vo;
 
 import com.hk.boot.framework.excel.core.annotations.DictFormat;
 import com.hk.boot.framework.excel.core.convert.DictConvert;
-import com.hk.boot.module.infra.enums.DictTypeConstants;
 import cn.idev.excel.annotation.ExcelIgnoreUnannotated;
 import cn.idev.excel.annotation.ExcelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -88,7 +87,6 @@ public class CrmContactRespVO {
 
     @Schema(description = "是否关键决策人")
     @ExcelProperty(value = "是否关键决策人", converter = DictConvert.class, order = 3)
-    @DictFormat(DictTypeConstants.BOOLEAN_STRING)
     private Boolean master;
 
     @Schema(description = "职位")

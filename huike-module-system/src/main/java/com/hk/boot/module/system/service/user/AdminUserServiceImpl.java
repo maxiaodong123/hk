@@ -2,7 +2,6 @@ package com.hk.boot.module.system.service.user;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
 import com.hk.boot.framework.common.enums.CommonStatusEnum;
 import com.hk.boot.framework.common.enums.UserTypeEnum;
@@ -12,7 +11,6 @@ import com.hk.boot.framework.common.util.collection.CollectionUtils;
 import com.hk.boot.framework.common.util.object.BeanUtils;
 import com.hk.boot.framework.common.util.validation.ValidationUtils;
 import com.hk.boot.framework.datapermission.core.util.DataPermissionUtils;
-import com.hk.boot.module.infra.api.config.ConfigApi;
 import com.hk.boot.module.system.controller.admin.auth.vo.AuthRegisterReqVO;
 import com.hk.boot.module.system.controller.admin.user.vo.profile.UserProfileUpdatePasswordReqVO;
 import com.hk.boot.module.system.controller.admin.user.vo.profile.UserProfileUpdateReqVO;
@@ -59,7 +57,7 @@ import static com.hk.boot.module.system.enums.LogRecordConstants.*;
 @Slf4j
 public class AdminUserServiceImpl implements AdminUserService {
 
-    static final String USER_INIT_PASSWORD_KEY = "system.user.init-password";
+    static final String USER_INIT_PASSWORD_KEY = "123456";
 
     static final String USER_REGISTER_ENABLED_KEY = "system.user.register-enabled";
 
@@ -80,9 +78,6 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Resource
     private UserPostMapper userPostMapper;
-
-    @Resource
-    private ConfigApi configApi;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -111,11 +106,8 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public Long registerUser(AuthRegisterReqVO registerReqVO) {
-        // 1.1 校验是否开启注册
-        if (ObjUtil.notEqual(configApi.getConfigValueByKey(USER_REGISTER_ENABLED_KEY), "true")) {
-            throw exception(USER_REGISTER_DISABLED);
-        }
-        // 1.3 校验正确性
+
+        // 1. 校验正确性
         validateUserForCreateOrUpdate(null, registerReqVO.getUsername(), null, null, null, null);
 
         // 2. 插入用户
@@ -463,10 +455,7 @@ public class AdminUserServiceImpl implements AdminUserService {
             throw exception(USER_IMPORT_LIST_IS_EMPTY);
         }
         // 1.2 初始化密码不能为空
-        String initPassword = configApi.getConfigValueByKey(USER_INIT_PASSWORD_KEY);
-        if (StrUtil.isEmpty(initPassword)) {
-            throw exception(USER_IMPORT_INIT_PASSWORD);
-        }
+        String initPassword = USER_INIT_PASSWORD_KEY;
 
         // 2. 遍历，逐个创建 or 更新
         UserImportRespVO respVO = UserImportRespVO.builder().createUsernames(new ArrayList<>())
