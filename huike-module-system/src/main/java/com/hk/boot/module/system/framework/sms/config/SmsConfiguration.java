@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @author maxiaodong
  */
 @Configuration(proxyBeanMethods = false)
-@EnableConfigurationProperties(SmsCodeProperties.class)
+//@EnableConfigurationProperties(SmsCodeProperties.class)
 public class SmsConfiguration {
 
     @Bean
